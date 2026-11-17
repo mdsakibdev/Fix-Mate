@@ -1,11 +1,15 @@
 import { Navbar } from "@/components/layout/Navbar";
 
 
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
     <Navbar/>
-      {children}
+      <div className="flex-1">
+        {children}
+      </div>
+      
     </>
   );
 };
