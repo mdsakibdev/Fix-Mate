@@ -44,10 +44,31 @@ export default function AddServicePage() {
   const [estimatedDuration, setEstimatedDuration] = useState("");
   const [serviceMode, setServiceMode] = useState(serviceModes[0]);
   const [serviceArea, setServiceArea] = useState("");
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const [imageUploading, setImageUploading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Upload the image to ImgBB as soon as it is selected,
+  // so the preview and URL are visible before submitting.
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setError("");
+    setImageUrl("");
+    setImageUploading(true);
+
+    const url = await uploadImageToImgBB(file);
+    setImageUploading(false);
+
+    if (!url) {
+      setError("Image upload failed. Please try again.");
+      return;
+    }
+    setImageUrl(url);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,21 +83,17 @@ export default function AddServicePage() {
       setError("Base price must be a positive number.");
       return;
     }
-    if (!imageFile) {
+    if (imageUploading) {
+      setError("Please wait for the image to finish uploading.");
+      return;
+    }
+    if (!imageUrl) {
       setError("Please choose a service image.");
       return;
     }
 
     setLoading(true);
     try {
-      // 1. Upload the image to ImgBB
-      const imageUrl = await uploadImageToImgBB(imageFile);
-      if (!imageUrl) {
-        setError("Image upload failed. Please try again.");
-        return;
-      }
-
-      // 2. Save the service through the Express server
       const token = await getToken();
       const res = await fetch(`${SERVER_URL}/api/services`, {
         method: "POST",
@@ -108,14 +125,14 @@ export default function AddServicePage() {
       setBasePrice("");
       setEstimatedDuration("");
       setServiceArea("");
-      setImageFile(null);
-    } catch (err) {
+      setImageUrl("");
+    } catch {
       setError("Something went wrong. Please check the server is running.");
     } finally {
       setLoading(false);
     }
-    
   };
+
   return (
     <div className="max-w-2xl">
       <h1 className="text-2xl font-bold">Add a Service</h1>
@@ -220,19 +237,29 @@ export default function AddServicePage() {
 
         <div>
           <label className="mb-1.5 block text-sm font-medium">Service Image</label>
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-          />
-          {imageFile && (
-            <p className="mt-1.5 text-sm text-zinc-500 dark:text-zinc-400">{imageFile.name}</p>
+          <Input type="file" accept="image/*" onChange={handleImageChange} />
+          {imageUploading && (
+            <p className="mt-2 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Uploading image...
+            </p>
+          )}
+          {imageUrl && (
+            <div className="mt-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={imageUrl}
+                alt="Service preview"
+                className="h-40 w-full max-w-sm rounded-xl border border-zinc-200 object-cover dark:border-zinc-800"
+              />
+              <p className="mt-2 break-all text-xs text-zinc-500 dark:text-zinc-400">{imageUrl}</p>
+            </div>
           )}
         </div>
 
         <Button
           type="submit"
-          disabled={loading}
+          disabled={loading || imageUploading}
           className="bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
