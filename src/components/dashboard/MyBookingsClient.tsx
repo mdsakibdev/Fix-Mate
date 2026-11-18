@@ -25,6 +25,7 @@ function statusBadge(status: string) {
   return "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400";
 }
 
+
 export function MyBookingsClient() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,30 @@ export function MyBookingsClient() {
   const [success, setSuccess] = useState("");
   const [cancelTarget, setCancelTarget] = useState<Booking | null>(null);
   const [cancelling, setCancelling] = useState(false);
+  const [payingId, setPayingId] = useState("");
+
+  const handlePay = async (booking: Booking) => {
+    setPayingId(booking._id);
+    setError("");
+
+    const token = await getToken();
+    const res = await fetch(`${SERVER_URL}/api/payments/create-checkout-session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ bookingId: booking._id }),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.message || "Failed to start the payment.");
+      setPayingId("");
+      return;
+    }
+    window.location.assign(data.url);
+  };
 
   const loadBookings = async () => {
     const token = await getToken();
@@ -130,11 +155,10 @@ export function MyBookingsClient() {
             key={item.value}
             type="button"
             onClick={() => setFilter(item.value)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${
-              filter === item.value
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === item.value
                 ? "bg-[rgb(255,39,130)] text-white"
                 : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
-            }`}
+              }`}
           >
             {item.label}
           </button>
@@ -182,11 +206,10 @@ export function MyBookingsClient() {
                       {booking.status}
                     </span>
                     <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${
-                        booking.paymentStatus === "paid"
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${booking.paymentStatus === "paid"
                           ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
                           : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"
-                      }`}
+                        }`}
                     >
                       {booking.paymentStatus}
                     </span>
@@ -214,7 +237,19 @@ export function MyBookingsClient() {
                         Cancel Booking
                       </Button>
                     )}
+                    {booking.status === "completed" && booking.paymentStatus === "unpaid" && (
+                      <Button
+                        type="button"
+                        size="sm"
+                        disabled={payingId === booking._id}
+                        onClick={() => handlePay(booking)}
+                        className="bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+                      >
+                        {payingId === booking._id ? "Redirecting..." : "Pay Now"}
+                      </Button>
+                    )}
                   </div>
+
                 </div>
               </div>
             </div>
