@@ -8,6 +8,7 @@ import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import Logo from "@/components/layout/Logo";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,11 +28,8 @@ const navLinks = [
 function Brand() {
   return (
     <Link href="/" aria-label="FixMate home" className="flex items-center gap-2.5">
-      <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[rgb(249,115,22)] text-white shadow-sm">
-        <Wrench className="size-5" />
-      </span>
       <span className="text-xl font-semibold tracking-tight text-black dark:text-white">
-        Fix<span className="text-[rgb(249,115,22)]">Mate</span>
+       <Logo />
       </span>
     </Link>
   );
@@ -222,11 +220,9 @@ export function Navbar() {
             <SheetContent side="right" className="w-80 gap-0">
               <SheetHeader className="border-b p-4">
                 <SheetTitle className="flex items-center gap-2.5">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[rgb(249,115,22)] text-white">
-                    <Wrench className="size-5" />
-                  </span>
+                  
                   <span className="text-xl font-semibold tracking-tight">
-                    Fix<span className="text-[rgb(249,115,22)]">Mate</span>
+                    <Logo />
                   </span>
                 </SheetTitle>
               </SheetHeader>

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Wrench, Mail, Phone, MapPin } from "lucide-react";
 import { CopyrightYear } from "@/components/layout/CopyrightYear";
+import { Suspense } from "react";
+
 
 
 const quickLinks = [
@@ -157,7 +159,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-zinc-200 dark:border-zinc-800">
         <p className="mx-auto max-w-7xl px-4 py-5 text-center text-sm text-zinc-500 sm:px-6 lg:px-8">
-          © <CopyrightYear /> FixMate. All rights reserved.
+          © <Suspense fallback={null}><CopyrightYear /></Suspense> FixMate. All rights reserved.
 
         </p>
       </div>
