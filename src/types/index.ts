@@ -47,6 +47,7 @@ export type Booking = {
   status: BookingStatus;
   finalAmount: number;
   paymentStatus: PaymentStatus;
+  statusHistory?: { status: string; changedAt: string }[];
   createdAt?: string;
 };
 

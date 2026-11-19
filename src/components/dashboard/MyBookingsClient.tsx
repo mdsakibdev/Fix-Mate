@@ -5,6 +5,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { SERVER_URL, getToken } from "@/lib/api";
+import { BookingTimeline } from "@/components/dashboard/BookingTimeline";
 import type { Booking } from "@/types";
 
 const filters = [
@@ -145,10 +146,11 @@ export function MyBookingsClient() {
             key={item.value}
             type="button"
             onClick={() => setFilter(item.value)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === item.value
-              ? "bg-[rgb(249,115,22)] text-white"
-              : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
-              }`}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${
+              filter === item.value
+                ? "bg-[rgb(249,115,22)] text-white"
+                : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
+            }`}
           >
             {item.label}
           </button>
@@ -196,10 +198,11 @@ export function MyBookingsClient() {
                       {booking.status}
                     </span>
                     <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${booking.paymentStatus === "paid"
-                        ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
-                        : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"
-                        }`}
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${
+                        booking.paymentStatus === "paid"
+                          ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
+                          : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"
+                      }`}
                     >
                       {booking.paymentStatus}
                     </span>
@@ -241,6 +244,12 @@ export function MyBookingsClient() {
                   </div>
                 </div>
               </div>
+              <BookingTimeline
+                status={booking.status}
+                paymentStatus={booking.paymentStatus}
+                statusHistory={booking.statusHistory}
+                createdAt={booking.createdAt}
+              />
             </div>
           ))}
         </div>
