@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { MapPin, Clock3 } from "lucide-react";
+import { MapPin, Clock3, Star } from "lucide-react";
 import { RequestRepair } from "@/components/services/RequestRepair";
 import type { Service } from "@/types";
 
@@ -13,7 +13,34 @@ type TechnicianSummary = {
   bio: string;
 } | null;
 
-type ServiceDetails = Service & { technician: TechnicianSummary };
+type ReviewItem = {
+  customerName: string;
+  rating: number;
+  review: string;
+  reviewedAt: string;
+};
+
+type ServiceDetails = Service & {
+  technician: TechnicianSummary;
+  reviews: ReviewItem[];
+};
+
+function StarsRow({ value }: { value: number }) {
+  return (
+    <span className="flex gap-0.5">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Star
+          key={star}
+          className={`h-4 w-4 ${
+            star <= value
+              ? "fill-[rgb(249,115,22)] text-[rgb(249,115,22)]"
+              : "text-zinc-300 dark:text-zinc-600"
+          }`}
+        />
+      ))}
+    </span>
+  );
+}
 
 export default async function ServiceDetailsPage({
   params,
@@ -35,6 +62,7 @@ export default async function ServiceDetailsPage({
   }
 
   const technician = service.technician;
+  const reviews = service.reviews || [];
 
   return (
     <section className="bg-white dark:bg-black">
@@ -61,6 +89,15 @@ export default async function ServiceDetailsPage({
             <h1 className="mt-4 text-3xl font-bold text-black dark:text-white">
               {service.title}
             </h1>
+            {service.reviewCount ? (
+              <p className="mt-2 flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+                <Star className="h-4 w-4 fill-[rgb(249,115,22)] text-[rgb(249,115,22)]" />
+                <span className="font-medium text-black dark:text-white">
+                  {service.averageRating}
+                </span>
+                · {service.reviewCount} {service.reviewCount === 1 ? "review" : "reviews"}
+              </p>
+            ) : null}
             <p className="mt-4 leading-relaxed text-zinc-600 dark:text-zinc-400">
               {service.description}
             </p>
@@ -84,6 +121,44 @@ export default async function ServiceDetailsPage({
               Starting price:{" "}
               <span className="text-2xl font-bold text-[rgb(249,115,22)]">${service.basePrice}</span>
             </p>
+
+            {/* Customer reviews */}
+            {reviews.length > 0 && (
+              <div className="mt-10">
+                <h2 className="text-xl font-semibold text-black dark:text-white">
+                  Customer Reviews
+                </h2>
+                <div className="mt-4 space-y-4">
+                  {reviews.map((review, index) => (
+                    <div
+                      key={index}
+                      className="rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800"
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="font-medium text-black dark:text-white">
+                          {review.customerName}
+                        </p>
+                        <span className="text-xs text-zinc-400 dark:text-zinc-500">
+                          {new Date(review.reviewedAt).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </span>
+                      </div>
+                      <div className="mt-1.5">
+                        <StarsRow value={review.rating} />
+                      </div>
+                      {review.review && (
+                        <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                          {review.review}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right: technician + request */}

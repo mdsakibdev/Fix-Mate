@@ -27,6 +27,7 @@ export type Service = {
   approvalStatus: ApprovalStatus;
   isAvailable: boolean;
   createdAt?: string;
+  averageRating?: number; reviewCount?: number;
 };
 
 export type Booking = {
@@ -49,6 +50,7 @@ export type Booking = {
   paymentStatus: PaymentStatus;
   statusHistory?: { status: string; changedAt: string }[];
   createdAt?: string;
+  rating?: number; review?: string; reviewedAt?: string;
 };
 
 export type Payment = {

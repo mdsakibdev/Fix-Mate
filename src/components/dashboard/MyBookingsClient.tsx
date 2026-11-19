@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Star } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { SERVER_URL, getToken } from "@/lib/api";
@@ -27,6 +28,23 @@ function statusBadge(status: string) {
   return "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400";
 }
 
+function Stars({ value, size = "h-4 w-4" }: { value: number; size?: string }) {
+  return (
+    <span className="flex gap-0.5">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Star
+          key={star}
+          className={`${size} ${
+            star <= value
+              ? "fill-[rgb(249,115,22)] text-[rgb(249,115,22)]"
+              : "text-zinc-300 dark:text-zinc-600"
+          }`}
+        />
+      ))}
+    </span>
+  );
+}
+
 export function MyBookingsClient() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +53,10 @@ export function MyBookingsClient() {
   const [cancelTarget, setCancelTarget] = useState<Booking | null>(null);
   const [cancelling, setCancelling] = useState(false);
   const [payingId, setPayingId] = useState("");
+  const [reviewOpenId, setReviewOpenId] = useState("");
+  const [reviewRating, setReviewRating] = useState(0);
+  const [reviewText, setReviewText] = useState("");
+  const [submittingReview, setSubmittingReview] = useState(false);
 
   const loadBookings = async () => {
     const token = await getToken();
@@ -115,6 +137,34 @@ export function MyBookingsClient() {
       return;
     }
     window.location.assign(data.url);
+  };
+
+  const handleSubmitReview = async (booking: Booking) => {
+    if (reviewRating === 0) {
+      toast.error("Please select a star rating first.");
+      return;
+    }
+    setSubmittingReview(true);
+
+    const token = await getToken();
+    const res = await fetch(`${SERVER_URL}/api/bookings/${booking._id}/review`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ rating: reviewRating, review: reviewText }),
+    });
+    const data = await res.json();
+    setSubmittingReview(false);
+
+    if (!res.ok) {
+      toast.error(data.message || "Failed to submit the review.");
+      return;
+    }
+    toast.success("Review submitted. Thank you!");
+    setReviewOpenId("");
+    loadBookings();
   };
 
   const visibleBookings =
@@ -250,6 +300,91 @@ export function MyBookingsClient() {
                 statusHistory={booking.statusHistory}
                 createdAt={booking.createdAt}
               />
+
+              {/* Review section: only for paid bookings */}
+              {booking.paymentStatus === "paid" && (
+                <div className="mt-4 border-t border-zinc-100 pt-4 dark:border-zinc-800">
+                  {booking.rating ? (
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <Stars value={booking.rating} />
+                        <span className="text-sm font-medium text-black dark:text-white">
+                          Your review
+                        </span>
+                      </div>
+                      {booking.review && (
+                        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                          {booking.review}
+                        </p>
+                      )}
+                    </div>
+                  ) : reviewOpenId === booking._id ? (
+                    <div>
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            type="button"
+                            onClick={() => setReviewRating(star)}
+                            aria-label={`Rate ${star} star`}
+                          >
+                            <Star
+                              className={`h-6 w-6 ${
+                                star <= reviewRating
+                                  ? "fill-[rgb(249,115,22)] text-[rgb(249,115,22)]"
+                                  : "text-zinc-300 dark:text-zinc-600"
+                              }`}
+                            />
+                          </button>
+                        ))}
+                        <span className="ml-2 text-sm text-zinc-500 dark:text-zinc-400">
+                          {reviewRating > 0 ? `${reviewRating} / 5` : "Tap a star to rate"}
+                        </span>
+                      </div>
+                      <textarea
+                        value={reviewText}
+                        onChange={(e) => setReviewText(e.target.value)}
+                        maxLength={300}
+                        rows={3}
+                        placeholder="How was the service? (optional)"
+                        className="mt-3 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm text-black dark:border-zinc-700 dark:bg-zinc-950 dark:text-white"
+                      />
+                      <div className="mt-3 flex gap-2">
+                        <Button
+                          type="button"
+                          size="sm"
+                          disabled={submittingReview}
+                          onClick={() => handleSubmitReview(booking)}
+                          className="bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
+                        >
+                          {submittingReview ? "Submitting..." : "Submit Review"}
+                        </Button>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setReviewOpenId("")}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setReviewOpenId(booking._id);
+                        setReviewRating(0);
+                        setReviewText("");
+                      }}
+                    >
+                      Write a Review
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>

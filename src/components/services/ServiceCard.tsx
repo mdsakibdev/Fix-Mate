@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { MapPin, Star } from "lucide-react";
 import type { Service } from "@/types";
 
 export function ServiceCard({ service }: { service: Service }) {
@@ -29,6 +29,15 @@ export function ServiceCard({ service }: { service: Service }) {
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
           by {service.technicianName}
         </p>
+        {service.reviewCount ? (
+          <p className="mt-1.5 flex items-center gap-1 text-sm text-zinc-600 dark:text-zinc-400">
+            <Star className="h-4 w-4 fill-[rgb(249,115,22)] text-[rgb(249,115,22)]" />
+            <span className="font-medium text-black dark:text-white">
+              {service.averageRating}
+            </span>
+            ({service.reviewCount} {service.reviewCount === 1 ? "review" : "reviews"})
+          </p>
+        ) : null}
 
         <div className="mt-auto flex items-center justify-between pt-5">
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
