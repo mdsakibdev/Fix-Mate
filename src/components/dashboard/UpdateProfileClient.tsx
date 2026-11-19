@@ -1,38 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { authClient, useSession } from "@/lib/auth-client";
+
+type ProfileUser = {
+  id: string;
+  name: string;
+  email: string;
+  role?: string;
+  image?: string | null;
+  phone?: string;
+  area?: string;
+  bio?: string;
+};
 
 export function UpdateProfileClient() {
   const { data: session } = useSession();
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [area, setArea] = useState("");
-  const [bio, setBio] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [filled, setFilled] = useState(false);
+  if (!session?.user) {
+    return <p className="text-sm text-zinc-500 dark:text-zinc-400">Loading...</p>;
+  }
+
+  const user = session.user as ProfileUser;
+
+  // key makes the form start fresh with this user's data, no effect needed
+  return <ProfileForm key={user.id} user={user} />;
+}
+
+function ProfileForm({ user }: { user: ProfileUser }) {
+  const [name, setName] = useState(user.name || "");
+  const [phone, setPhone] = useState(user.phone || "");
+  const [area, setArea] = useState(user.area || "");
+  const [bio, setBio] = useState(user.bio || "");
+  const [imageUrl, setImageUrl] = useState(user.image || "");
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
-  // Prefill once when the session loads
-  useEffect(() => {
-    if (session?.user && !filled) {
-      const user = session.user as typeof session.user & {
-        phone?: string;
-        area?: string;
-        bio?: string;
-      };
-      setName(user.name || "");
-      setPhone(user.phone || "");
-      setArea(user.area || "");
-      setBio(user.bio || "");
-      setImageUrl(user.image || "");
-      setFilled(true);
-    }
-  }, [session, filled]);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -73,10 +77,6 @@ export function UpdateProfileClient() {
     }
     setSuccess("Profile updated successfully.");
   };
-
-  if (!session) {
-    return <p className="text-sm text-zinc-500 dark:text-zinc-400">Loading...</p>;
-  }
 
   const inputClass =
     "w-full rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm text-black outline-none focus:border-[rgb(255,39,130)] dark:border-zinc-700 dark:bg-zinc-950 dark:text-white";
@@ -125,12 +125,12 @@ export function UpdateProfileClient() {
 
         <div>
           <label className="mb-1 block text-sm font-medium">Email</label>
-          <input value={session.user.email} disabled className={`${inputClass} opacity-60`} />
+          <input value={user.email} disabled className={`${inputClass} opacity-60`} />
         </div>
 
         <div>
           <label className="mb-1 block text-sm font-medium">Role</label>
-          <input value={session.user.role} disabled className={`${inputClass} capitalize opacity-60`} />
+          <input value={user.role || ""} disabled className={`${inputClass} capitalize opacity-60`} />
         </div>
 
         <div>
