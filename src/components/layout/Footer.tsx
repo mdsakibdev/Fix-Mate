@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Wrench, Mail, Phone, MapPin } from "lucide-react";
+import { CopyrightYear } from "@/components/layout/CopyrightYear";
+
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -155,7 +157,8 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-zinc-200 dark:border-zinc-800">
         <p className="mx-auto max-w-7xl px-4 py-5 text-center text-sm text-zinc-500 sm:px-6 lg:px-8">
-          © {new Date().getFullYear()} FixMate. All rights reserved.
+          © <CopyrightYear /> FixMate. All rights reserved.
+
         </p>
       </div>
     </footer>
