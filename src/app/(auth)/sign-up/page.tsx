@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Wrench, User, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ function getPasswordErrors(password: string) {
 }
 
 export default function SignUpPage() {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,9 +57,9 @@ export default function SignUpPage() {
     }
 
     toast.success("Account created successfully!");
-    // Full page load on purpose (same as sign-in): the brand-new session
-    // cookie is always sent with it, so one click is enough.
-    window.location.assign(role === "technician" ? "/dashboard/technician" : "/dashboard/customer");
+    // NOTE: no router.refresh() here — calling it right after push() can
+    // cancel the navigation, which is why the first click used to do nothing.
+    router.push(role === "technician" ? "/dashboard/technician" : "/dashboard/customer");
   };
 
   return (

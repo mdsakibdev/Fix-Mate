@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { Wrench, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ export default function SignInPage() {
 }
 
 function SignInForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
 
@@ -49,13 +50,13 @@ function SignInForm() {
 
     // If the user was sent here from a page (e.g. a service details page),
     // send them back there; otherwise go to their role's dashboard.
-    // A full page load (location.assign) is used on purpose: the brand-new
-    // session cookie is always sent with it, so one click is enough.
+    // NOTE: no router.refresh() here — calling it right after push() can
+    // cancel the navigation, which is why the first click used to do nothing.
     if (callbackUrl && callbackUrl.startsWith("/")) {
-      window.location.assign(callbackUrl);
+      router.push(callbackUrl);
     } else {
       const role = (data?.user as { role?: string } | undefined)?.role || "customer";
-      window.location.assign(
+      router.push(
         role === "admin"
           ? "/dashboard/admin"
           : role === "technician"
