@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Wrench, User, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,6 @@ function getPasswordErrors(password: string) {
 }
 
 export default function SignUpPage() {
-  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,16 +47,17 @@ export default function SignUpPage() {
       password,
       role,
     });
-    setLoading(false);
 
     if (signUpError) {
+      setLoading(false);
       toast.error(signUpError.message || "Sign up failed. Please try again.");
       return;
     }
 
     toast.success("Account created successfully!");
-    router.push(role === "technician" ? "/dashboard/technician" : "/dashboard/customer");
-    router.refresh();
+    // Full page load on purpose (same as sign-in): the brand-new session
+    // cookie is always sent with it, so one click is enough.
+    window.location.assign(role === "technician" ? "/dashboard/technician" : "/dashboard/customer");
   };
 
   return (
@@ -131,10 +130,11 @@ export default function SignUpPage() {
             <button
               type="button"
               onClick={() => setRole("customer")}
-              className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium ${role === "customer"
-                ? "border-[rgb(249,115,22)] bg-[rgba(249,115,22,0.1)] text-[rgb(249,115,22)]"
-                : "border-zinc-200 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
-                }`}
+              className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium ${
+                role === "customer"
+                  ? "border-[rgb(249,115,22)] bg-[rgba(249,115,22,0.1)] text-[rgb(249,115,22)]"
+                  : "border-zinc-200 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
+              }`}
             >
               <User className="h-4 w-4" />
               Customer
@@ -142,10 +142,11 @@ export default function SignUpPage() {
             <button
               type="button"
               onClick={() => setRole("technician")}
-              className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium ${role === "technician"
-                ? "border-[rgb(249,115,22)] bg-[rgba(249,115,22,0.1)] text-[rgb(249,115,22)]"
-                : "border-zinc-200 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
-                }`}
+              className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium ${
+                role === "technician"
+                  ? "border-[rgb(249,115,22)] bg-[rgba(249,115,22,0.1)] text-[rgb(249,115,22)]"
+                  : "border-zinc-200 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
+              }`}
             >
               <Wrench className="h-4 w-4" />
               Technician
