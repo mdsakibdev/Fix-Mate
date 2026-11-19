@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SERVER_URL, getToken } from "@/lib/api";
@@ -30,7 +31,6 @@ export function ManageRequestsClient() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [updatingId, setUpdatingId] = useState("");
   const [completeTarget, setCompleteTarget] = useState<Booking | null>(null);
   const [finalAmount, setFinalAmount] = useState("");
@@ -75,8 +75,6 @@ export function ManageRequestsClient() {
 
   const updateStatus = async (booking: Booking, status: string, amount?: number) => {
     setUpdatingId(booking._id);
-    setError("");
-    setSuccess("");
 
     const token = await getToken();
     const res = await fetch(`${SERVER_URL}/api/bookings/${booking._id}/status`, {
@@ -91,10 +89,10 @@ export function ManageRequestsClient() {
     setUpdatingId("");
 
     if (!res.ok) {
-      setError(data.message || "Failed to update the booking.");
+      toast.error(data.message || "Failed to update the booking.");
       return;
     }
-    setSuccess(data.message);
+    toast.success(data.message);
     setCompleteTarget(null);
     loadBookings();
   };
@@ -103,7 +101,7 @@ export function ManageRequestsClient() {
     if (!completeTarget) return;
     const amount = Number(finalAmount);
     if (!amount || amount <= 0) {
-      setError("Please enter a valid final amount.");
+      toast.error("Please enter a valid final amount.");
       return;
     }
     updateStatus(completeTarget, "completed", amount);
@@ -128,11 +126,6 @@ export function ManageRequestsClient() {
       {error && (
         <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
           {error}
-        </p>
-      )}
-      {success && (
-        <p className="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
-          {success}
         </p>
       )}
 

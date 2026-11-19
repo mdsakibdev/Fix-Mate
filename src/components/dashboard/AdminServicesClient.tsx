@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { SERVER_URL, getToken } from "@/lib/api";
 import type { Service } from "@/types";
@@ -23,7 +24,6 @@ export function AdminServicesClient() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("pending");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const loadServices = async () => {
     const token = await getToken();
@@ -64,8 +64,6 @@ export function AdminServicesClient() {
   }, []);
 
   const handleApproval = async (id: string, approvalStatus: "approved" | "rejected") => {
-    setError("");
-    setSuccess("");
     const token = await getToken();
     const res = await fetch(`${SERVER_URL}/api/admin/services/${id}/approval`, {
       method: "PATCH",
@@ -78,10 +76,10 @@ export function AdminServicesClient() {
     const data = await res.json();
 
     if (!res.ok) {
-      setError(data.message || "Failed to update the service.");
+      toast.error(data.message || "Failed to update the service.");
       return;
     }
-    setSuccess(`Service ${approvalStatus}.`);
+    toast.success(`Service ${approvalStatus}.`);
     loadServices();
   };
 
@@ -104,11 +102,6 @@ export function AdminServicesClient() {
       {error && (
         <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
           {error}
-        </p>
-      )}
-      {success && (
-        <p className="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
-          {success}
         </p>
       )}
 

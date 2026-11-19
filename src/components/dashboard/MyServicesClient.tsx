@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { toast } from "sonner";
 import { Loader2, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,7 +34,6 @@ export function MyServicesClient() {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState({
@@ -66,32 +66,31 @@ export function MyServicesClient() {
     setLoading(false);
   };
 
- useEffect(() => {
-  let cancelled = false;
+  useEffect(() => {
+    let cancelled = false;
 
-  const fetchServices = async () => {
-    const token = await getToken();
-    const res = await fetch(`${SERVER_URL}/api/services/my`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await res.json();
+    const fetchServices = async () => {
+      const token = await getToken();
+      const res = await fetch(`${SERVER_URL}/api/services/my`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
 
-    if (cancelled) return;
-    if (res.ok) {
-      setServices(data);
-    } else {
-      setError(data.message || "Failed to load services.");
-    }
-    setLoading(false);
-  };
+      if (cancelled) return;
+      if (res.ok) {
+        setServices(data);
+      } else {
+        setError(data.message || "Failed to load services.");
+      }
+      setLoading(false);
+    };
 
-  fetchServices();
+    fetchServices();
 
-  return () => {
-    cancelled = true;
-  };
-}, []);
-
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleToggle = async (service: Service) => {
     const token = await getToken();
@@ -104,9 +103,14 @@ export function MyServicesClient() {
       body: JSON.stringify({ isAvailable: !service.isAvailable }),
     });
     if (res.ok) {
+      toast.success(
+        service.isAvailable
+          ? "Service marked as unavailable."
+          : "Service marked as available."
+      );
       loadServices();
     } else {
-      setError("Failed to update availability.");
+      toast.error("Failed to update availability.");
     }
   };
 
@@ -122,8 +126,6 @@ export function MyServicesClient() {
       serviceArea: service.serviceArea,
       image: service.image,
     });
-    setError("");
-    setSuccess("");
   };
 
   const handleEditImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +137,7 @@ export function MyServicesClient() {
     if (url) {
       setEditForm((prev) => ({ ...prev, image: url }));
     } else {
-      setError("Image upload failed. Please try again.");
+      toast.error("Image upload failed. Please try again.");
     }
   };
 
@@ -143,8 +145,6 @@ export function MyServicesClient() {
     e.preventDefault();
     if (!editingId) return;
     setSaving(true);
-    setError("");
-    setSuccess("");
 
     const token = await getToken();
     const res = await fetch(`${SERVER_URL}/api/services/${editingId}`, {
@@ -159,10 +159,10 @@ export function MyServicesClient() {
     setSaving(false);
 
     if (!res.ok) {
-      setError(data.message || "Failed to update the service.");
+      toast.error(data.message || "Failed to update the service.");
       return;
     }
-    setSuccess("Service updated! It is waiting for admin approval again.");
+    toast.success("Service updated! It is waiting for admin approval again.");
     setEditingId(null);
     loadServices();
   };
@@ -180,10 +180,10 @@ export function MyServicesClient() {
     setDeleteTarget(null);
 
     if (res.ok) {
-      setSuccess("Service deleted.");
+      toast.success("Service deleted.");
       loadServices();
     } else {
-      setError("Failed to delete the service.");
+      toast.error("Failed to delete the service.");
     }
   };
 
@@ -201,11 +201,6 @@ export function MyServicesClient() {
       {error && (
         <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
           {error}
-        </p>
-      )}
-      {success && (
-        <p className="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
-          {success}
         </p>
       )}
 

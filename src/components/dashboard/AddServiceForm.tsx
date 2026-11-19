@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,8 +36,6 @@ export function AddServiceForm() {
   const [serviceArea, setServiceArea] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [imageUploading, setImageUploading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   // Upload the image to ImgBB as soon as it is selected,
@@ -45,7 +44,6 @@ export function AddServiceForm() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setError("");
     setImageUrl("");
     setImageUploading(true);
 
@@ -53,7 +51,7 @@ export function AddServiceForm() {
     setImageUploading(false);
 
     if (!url) {
-      setError("Image upload failed. Please try again.");
+      toast.error("Image upload failed. Please try again.");
       return;
     }
     setImageUrl(url);
@@ -61,23 +59,21 @@ export function AddServiceForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
 
     if (!title || !description || !basePrice || !estimatedDuration || !serviceArea) {
-      setError("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
       return;
     }
     if (Number(basePrice) <= 0) {
-      setError("Base price must be a positive number.");
+      toast.error("Base price must be a positive number.");
       return;
     }
     if (imageUploading) {
-      setError("Please wait for the image to finish uploading.");
+      toast.error("Please wait for the image to finish uploading.");
       return;
     }
     if (!imageUrl) {
-      setError("Please choose a service image.");
+      toast.error("Please choose a service image.");
       return;
     }
 
@@ -104,11 +100,11 @@ export function AddServiceForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || "Failed to add the service.");
+        toast.error(data.message || "Failed to add the service.");
         return;
       }
 
-      setSuccess("Service added successfully! It is now waiting for admin approval.");
+      toast.success("Service added successfully! It is now waiting for admin approval.");
       setTitle("");
       setDescription("");
       setBasePrice("");
@@ -116,7 +112,7 @@ export function AddServiceForm() {
       setServiceArea("");
       setImageUrl("");
     } catch {
-      setError("Something went wrong. Please check the server is running.");
+      toast.error("Something went wrong. Please check the server is running.");
     } finally {
       setLoading(false);
     }
@@ -130,17 +126,6 @@ export function AddServiceForm() {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-        {error && (
-          <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
-            {error}
-          </p>
-        )}
-        {success && (
-          <p className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
-            {success}
-          </p>
-        )}
-
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="mb-1.5 block text-sm font-medium">Technician Name</label>

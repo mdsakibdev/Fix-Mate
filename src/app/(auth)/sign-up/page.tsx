@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Wrench, User, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,19 +24,17 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<"customer" | "technician">("customer");
   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     if (!name.trim() || !email.trim() || !password) {
-      setError("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Please enter a valid email address.");
+      toast.error("Please enter a valid email address.");
       return;
     }
 
@@ -53,10 +52,11 @@ export default function SignUpPage() {
     setLoading(false);
 
     if (signUpError) {
-      setError(signUpError.message || "Sign up failed. Please try again.");
+      toast.error(signUpError.message || "Sign up failed. Please try again.");
       return;
     }
 
+    toast.success("Account created successfully!");
     router.push(role === "technician" ? "/dashboard/technician" : "/dashboard/customer");
     router.refresh();
   };
@@ -80,12 +80,6 @@ export default function SignUpPage() {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-        {error && (
-          <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
-            {error}
-          </p>
-        )}
-
         <div>
           <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">
             Full Name

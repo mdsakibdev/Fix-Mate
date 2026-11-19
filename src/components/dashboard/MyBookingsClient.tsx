@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { SERVER_URL, getToken } from "@/lib/api";
 import type { Booking } from "@/types";
@@ -25,39 +26,14 @@ function statusBadge(status: string) {
   return "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400";
 }
 
-
 export function MyBookingsClient() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [cancelTarget, setCancelTarget] = useState<Booking | null>(null);
   const [cancelling, setCancelling] = useState(false);
   const [payingId, setPayingId] = useState("");
-
-  const handlePay = async (booking: Booking) => {
-    setPayingId(booking._id);
-    setError("");
-
-    const token = await getToken();
-    const res = await fetch(`${SERVER_URL}/api/payments/create-checkout-session`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ bookingId: booking._id }),
-    });
-    const data = await res.json();
-
-    if (!res.ok) {
-      setError(data.message || "Failed to start the payment.");
-      setPayingId("");
-      return;
-    }
-    window.location.assign(data.url);
-  };
 
   const loadBookings = async () => {
     const token = await getToken();
@@ -100,8 +76,6 @@ export function MyBookingsClient() {
   const handleCancel = async () => {
     if (!cancelTarget) return;
     setCancelling(true);
-    setError("");
-    setSuccess("");
 
     const token = await getToken();
     const res = await fetch(`${SERVER_URL}/api/bookings/${cancelTarget._id}/cancel`, {
@@ -110,15 +84,36 @@ export function MyBookingsClient() {
     });
     const data = await res.json();
     setCancelling(false);
+    setCancelTarget(null);
 
     if (!res.ok) {
-      setError(data.message || "Failed to cancel the booking.");
-      setCancelTarget(null);
+      toast.error(data.message || "Failed to cancel the booking.");
       return;
     }
-    setSuccess("Booking cancelled.");
-    setCancelTarget(null);
+    toast.success("Booking cancelled.");
     loadBookings();
+  };
+
+  const handlePay = async (booking: Booking) => {
+    setPayingId(booking._id);
+
+    const token = await getToken();
+    const res = await fetch(`${SERVER_URL}/api/payments/create-checkout-session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ bookingId: booking._id }),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.message || "Failed to start the payment.");
+      setPayingId("");
+      return;
+    }
+    window.location.assign(data.url);
   };
 
   const visibleBookings =
@@ -142,11 +137,6 @@ export function MyBookingsClient() {
           {error}
         </p>
       )}
-      {success && (
-        <p className="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
-          {success}
-        </p>
-      )}
 
       {/* Filter buttons */}
       <div className="mt-6 flex flex-wrap gap-2">
@@ -155,10 +145,11 @@ export function MyBookingsClient() {
             key={item.value}
             type="button"
             onClick={() => setFilter(item.value)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === item.value
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${
+              filter === item.value
                 ? "bg-[rgb(255,39,130)] text-white"
                 : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
-              }`}
+            }`}
           >
             {item.label}
           </button>
@@ -206,10 +197,11 @@ export function MyBookingsClient() {
                       {booking.status}
                     </span>
                     <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${booking.paymentStatus === "paid"
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${
+                        booking.paymentStatus === "paid"
                           ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
                           : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"
-                        }`}
+                      }`}
                     >
                       {booking.paymentStatus}
                     </span>
@@ -249,7 +241,6 @@ export function MyBookingsClient() {
                       </Button>
                     )}
                   </div>
-
                 </div>
               </div>
             </div>

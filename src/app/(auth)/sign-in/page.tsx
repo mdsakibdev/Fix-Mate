@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Wrench, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,15 +13,13 @@ export default function SignInPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     if (!email.trim() || !password) {
-      setError("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
       return;
     }
 
@@ -32,10 +31,11 @@ export default function SignInPage() {
     setLoading(false);
 
     if (signInError) {
-      setError("Invalid email or password. Please try again.");
+      toast.error("Invalid email or password. Please try again.");
       return;
     }
 
+    toast.success("Welcome back!");
     const role = (data?.user as { role?: string } | undefined)?.role || "customer";
     router.push(
       role === "admin"
@@ -66,12 +66,6 @@ export default function SignInPage() {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-        {error && (
-          <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
-            {error}
-          </p>
-        )}
-
         <div>
           <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">
             Email

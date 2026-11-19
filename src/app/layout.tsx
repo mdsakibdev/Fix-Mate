@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-
+import { Toaster } from "sonner";
 import "./globals.css";
+
+
 
 // Poppins is a non-variable font, so weights must be listed explicitly.
 const poppins = Poppins({
@@ -37,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           
           <div className="flex-1">{children}</div>
+          <Toaster richColors position="top-center" />
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { authClient, useSession } from "@/lib/auth-client";
 
 type ProfileUser = {
@@ -35,14 +36,11 @@ function ProfileForm({ user }: { user: ProfileUser }) {
   const [imageUrl, setImageUrl] = useState(user.image || "");
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
-    setError("");
     const formData = new FormData();
     formData.append("image", file);
     const res = await fetch(
@@ -53,16 +51,15 @@ function ProfileForm({ user }: { user: ProfileUser }) {
     setUploading(false);
     if (data.success) {
       setImageUrl(data.data.url);
+      toast.success("Photo uploaded.");
     } else {
-      setError("Image upload failed. Please try again.");
+      toast.error("Image upload failed. Please try again.");
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    setError("");
-    setSuccess("");
     const { error } = await authClient.updateUser({
       name,
       image: imageUrl,
@@ -72,10 +69,10 @@ function ProfileForm({ user }: { user: ProfileUser }) {
     });
     setSaving(false);
     if (error) {
-      setError(error.message || "Failed to update profile.");
+      toast.error(error.message || "Failed to update profile.");
       return;
     }
-    setSuccess("Profile updated successfully.");
+    toast.success("Profile updated successfully.");
   };
 
   const inputClass =
@@ -87,17 +84,6 @@ function ProfileForm({ user }: { user: ProfileUser }) {
       <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
         Update your name, contact info and photo.
       </p>
-
-      {error && (
-        <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
-          {error}
-        </p>
-      )}
-      {success && (
-        <p className="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
-          {success}
-        </p>
-      )}
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-5">
         <div className="flex items-center gap-4">

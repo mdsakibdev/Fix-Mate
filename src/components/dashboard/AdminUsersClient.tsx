@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { SERVER_URL, getToken } from "@/lib/api";
 import { useSession } from "@/lib/auth-client";
 
@@ -23,7 +24,6 @@ export function AdminUsersClient() {
   const [users, setUsers] = useState<UserRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [updatingId, setUpdatingId] = useState("");
 
   const loadUsers = async () => {
@@ -66,8 +66,6 @@ export function AdminUsersClient() {
 
   const handleRoleChange = async (user: UserRow, role: string) => {
     setUpdatingId(user._id);
-    setError("");
-    setSuccess("");
 
     const token = await getToken();
     const res = await fetch(`${SERVER_URL}/api/admin/users/${user._id}/role`, {
@@ -82,10 +80,10 @@ export function AdminUsersClient() {
     setUpdatingId("");
 
     if (!res.ok) {
-      setError(data.message || "Failed to update the role.");
+      toast.error(data.message || "Failed to update the role.");
       return;
     }
-    setSuccess(`${user.name} is now a ${role}.`);
+    toast.success(`${user.name} is now a ${role}.`);
     loadUsers();
   };
 
@@ -103,11 +101,6 @@ export function AdminUsersClient() {
       {error && (
         <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
           {error}
-        </p>
-      )}
-      {success && (
-        <p className="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
-          {success}
         </p>
       )}
 
