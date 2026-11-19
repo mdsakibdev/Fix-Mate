@@ -6,8 +6,10 @@ import { StatBox } from "./StatBox";
 
 type TechnicianStats = {
   totalServices: number;
+  approvedServices: number;
   pendingApproval: number;
   totalRequests: number;
+  pendingRequests: number;
   completedJobs: number;
   totalEarnings: number;
 };
@@ -60,8 +62,9 @@ export function TechnicianStatsClient() {
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatBox title="Total Services" value={stats.totalServices} />
+        <StatBox title="Approved Services" value={stats.approvedServices} />
         <StatBox title="Pending Approval" value={stats.pendingApproval} />
-        <StatBox title="Total Requests" value={stats.totalRequests} />
+        <StatBox title="Pending Requests" value={stats.pendingRequests} />
         <StatBox title="Completed Jobs" value={stats.completedJobs} />
         <StatBox title="Total Earnings" value={`$${stats.totalEarnings}`} />
       </div>

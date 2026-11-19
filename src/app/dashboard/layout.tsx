@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 import {
   Menu,
   X,
@@ -61,6 +62,7 @@ function SidebarContent({
   pathname: string;
   onNavigate?: () => void;
   onSignOut: () => void;
+
 }) {
   const items = menus[role] || menus.customer;
 
@@ -147,6 +149,7 @@ export default function DashboardLayout({
 
   const handleSignOut = async () => {
     await authClient.signOut();
+    toast.success("Signed out successfully!");
     router.push("/");
     router.refresh();
   };

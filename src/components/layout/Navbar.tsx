@@ -7,6 +7,7 @@ import { Menu, Moon, Sun, Wrench, LayoutDashboard, User, LogOut } from "lucide-r
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -98,6 +99,7 @@ export function Navbar() {
 
   const handleSignOut = async () => {
     await authClient.signOut();
+    toast.success("Signed out successfully!");
     setProfileOpen(false);
     setMobileMenuOpen(false);
     router.push("/");

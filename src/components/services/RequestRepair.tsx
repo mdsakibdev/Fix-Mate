@@ -83,7 +83,7 @@ export function RequestRepair({ serviceId }: { serviceId: string }) {
           Please sign in as a customer to request this repair.
         </p>
         <Button
-          onClick={() => router.push("/sign-in")}
+          onClick={() => router.push(`/sign-in?callbackUrl=/services/${serviceId}`)}
           className="w-full bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
         >
           Request Repair

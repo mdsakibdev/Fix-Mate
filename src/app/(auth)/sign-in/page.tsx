@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { Wrench, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,18 @@ import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth-client";
 
 export default function SignInPage() {
+  return (
+    <Suspense>
+      <SignInForm />
+    </Suspense>
+  );
+}
+
+function SignInForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,14 +47,21 @@ export default function SignInPage() {
     }
 
     toast.success("Welcome back!");
-    const role = (data?.user as { role?: string } | undefined)?.role || "customer";
-    router.push(
-      role === "admin"
-        ? "/dashboard/admin"
-        : role === "technician"
-          ? "/dashboard/technician"
-          : "/dashboard/customer"
-    );
+
+    // If the user was sent here from a page (e.g. a service details page),
+    // send them back there; otherwise go to their role's dashboard.
+    if (callbackUrl && callbackUrl.startsWith("/")) {
+      router.push(callbackUrl);
+    } else {
+      const role = (data?.user as { role?: string } | undefined)?.role || "customer";
+      router.push(
+        role === "admin"
+          ? "/dashboard/admin"
+          : role === "technician"
+            ? "/dashboard/technician"
+            : "/dashboard/customer"
+      );
+    }
     router.refresh();
   };
 

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Search,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { HeroSlider } from "@/components/home/HeroSlider";
 
 const quickCategories = [
   { label: "Smartphone", value: "Smartphone" },
@@ -118,14 +118,7 @@ export function Hero() {
         {/* Right: image */}
         <div className="relative">
           <div className="relative overflow-hidden rounded-3xl">
-            <Image
-              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1200&auto=format&fit=crop"
-              alt="Technician repairing a home appliance"
-              width={1200}
-              height={900}
-              priority
-              className="h-full w-full object-cover"
-            />
+            <HeroSlider />
           </div>
 
           {/* floating card: job completed */}

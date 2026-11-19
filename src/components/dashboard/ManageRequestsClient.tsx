@@ -33,6 +33,7 @@ export function ManageRequestsClient() {
   const [error, setError] = useState("");
   const [updatingId, setUpdatingId] = useState("");
   const [completeTarget, setCompleteTarget] = useState<Booking | null>(null);
+  const [rejectTarget, setRejectTarget] = useState<Booking | null>(null);
   const [finalAmount, setFinalAmount] = useState("");
 
   const loadBookings = async () => {
@@ -107,6 +108,13 @@ export function ManageRequestsClient() {
     updateStatus(completeTarget, "completed", amount);
   };
 
+  const handleReject = () => {
+    if (!rejectTarget) return;
+    const booking = rejectTarget;
+    setRejectTarget(null);
+    updateStatus(booking, "rejected");
+  };
+
   const visibleBookings =
     filter === "all"
       ? bookings
@@ -136,10 +144,11 @@ export function ManageRequestsClient() {
             key={item.value}
             type="button"
             onClick={() => setFilter(item.value)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === item.value
-              ? "bg-[rgb(249,115,22)] text-white"
-              : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
-              }`}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${
+              filter === item.value
+                ? "bg-[rgb(249,115,22)] text-white"
+                : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
+            }`}
           >
             {item.label}
           </button>
@@ -179,10 +188,11 @@ export function ManageRequestsClient() {
                       {booking.status}
                     </span>
                     <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${booking.paymentStatus === "paid"
-                        ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
-                        : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"
-                        }`}
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${
+                        booking.paymentStatus === "paid"
+                          ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
+                          : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"
+                      }`}
                     >
                       {booking.paymentStatus}
                     </span>
@@ -219,7 +229,7 @@ export function ManageRequestsClient() {
                             type="button"
                             size="sm"
                             disabled={updatingId === booking._id}
-                            onClick={() => updateStatus(booking, "rejected")}
+                            onClick={() => setRejectTarget(booking)}
                             className="bg-red-500 text-white hover:bg-red-600"
                           >
                             Reject
@@ -257,6 +267,31 @@ export function ManageRequestsClient() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Reject confirmation modal */}
+      {rejectTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-6 dark:bg-zinc-950">
+            <h2 className="text-lg font-semibold text-black dark:text-white">Reject this request?</h2>
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+              You are about to reject {rejectTarget.customerName}&apos;s request for &quot;
+              {rejectTarget.serviceTitle}&quot;. This cannot be undone.
+            </p>
+            <div className="mt-5 flex justify-end gap-3">
+              <Button type="button" variant="outline" onClick={() => setRejectTarget(null)}>
+                Keep Request
+              </Button>
+              <Button
+                type="button"
+                onClick={handleReject}
+                className="bg-red-500 text-white hover:bg-red-600"
+              >
+                Yes, Reject
+              </Button>
+            </div>
+          </div>
         </div>
       )}
 
