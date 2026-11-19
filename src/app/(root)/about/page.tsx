@@ -44,7 +44,7 @@ export default function AboutPage() {
           <div className="mt-10 text-center">
             <Link
               href="/services"
-              className="inline-block rounded-lg bg-[rgb(255,39,130)] px-6 py-3 text-sm font-medium text-white hover:bg-[rgb(225,25,112)]"
+              className="inline-block rounded-lg bg-[rgb(249,115,22)] px-6 py-3 text-sm font-medium text-white hover:bg-[rgb(234,88,12)]"
             >
               Browse Services
             </Link>

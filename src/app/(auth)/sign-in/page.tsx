@@ -50,11 +50,11 @@ export default function SignInPage() {
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 sm:p-8">
       <Link href="/" className="flex items-center justify-center gap-2">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgb(255,39,130)]">
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgb(249,115,22)]">
           <Wrench className="h-5 w-5 text-white" />
         </span>
         <span className="text-xl font-bold text-black dark:text-white">
-          Fix<span className="text-[rgb(255,39,130)]">Mate</span>
+          Fix<span className="text-[rgb(249,115,22)]">Mate</span>
         </span>
       </Link>
 
@@ -93,7 +93,7 @@ export default function SignInPage() {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+          className="w-full bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           {loading ? "Signing in..." : "Sign In"}
@@ -102,7 +102,7 @@ export default function SignInPage() {
 
       <p className="mt-6 text-center text-sm text-zinc-600 dark:text-zinc-400">
         Do not have an account?{" "}
-        <Link href="/sign-up" className="font-medium text-[rgb(255,39,130)] hover:underline">
+        <Link href="/sign-up" className="font-medium text-[rgb(249,115,22)] hover:underline">
           Sign Up
         </Link>
       </p>

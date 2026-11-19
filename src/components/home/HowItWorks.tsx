@@ -42,10 +42,10 @@ export function HowItWorks() {
               key={step.title}
               className="rounded-2xl border border-zinc-200 p-6 text-center dark:border-zinc-800"
             >
-              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[rgba(255,39,130,0.1)]">
-                <step.icon className="h-7 w-7 text-[rgb(255,39,130)]" />
+              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[rgba(249,115,22,0.1)]">
+                <step.icon className="h-7 w-7 text-[rgb(249,115,22)]" />
               </span>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-[rgb(255,39,130)]">
+              <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-[rgb(249,115,22)]">
                 Step {index + 1}
               </p>
               <h3 className="mt-1 font-semibold text-black dark:text-white">

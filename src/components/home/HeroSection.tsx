@@ -42,20 +42,20 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-white dark:bg-black">
       {/* background decoration */}
-      <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[rgba(255,39,130,0.1)] blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-[rgba(255,39,130,0.1)] blur-3xl" />
+      <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[rgba(249,115,22,0.1)] blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-[rgba(249,115,22,0.1)] blur-3xl" />
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
         {/* Left: text */}
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,39,130,0.3)] bg-[rgba(255,39,130,0.1)] px-4 py-1.5 text-sm font-medium text-[rgb(255,39,130)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(249,115,22,0.3)] bg-[rgba(249,115,22,0.1)] px-4 py-1.5 text-sm font-medium text-[rgb(249,115,22)]">
             <ShieldCheck className="h-4 w-4" />
             Trusted Repair Service
           </span>
 
           <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight text-black dark:text-white sm:text-5xl lg:text-6xl">
             Broken Device? Get It Fixed by{" "}
-            <span className="text-[rgb(255,39,130)]">Verified Technicians</span>
+            <span className="text-[rgb(249,115,22)]">Verified Technicians</span>
           </h1>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-lg">
@@ -81,7 +81,7 @@ export function Hero() {
             <Button
               type="submit"
               size="lg"
-              className="shrink-0 bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+              className="shrink-0 bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
             >
               Search
             </Button>
@@ -94,7 +94,7 @@ export function Hero() {
               <Link
                 key={cat.value}
                 href={`/services?category=${encodeURIComponent(cat.value)}`}
-                className="rounded-full border border-zinc-200 px-3 py-1 text-sm text-zinc-700 transition hover:border-[rgb(255,39,130)] hover:text-[rgb(255,39,130)] dark:border-zinc-800 dark:text-zinc-300"
+                className="rounded-full border border-zinc-200 px-3 py-1 text-sm text-zinc-700 transition hover:border-[rgb(249,115,22)] hover:text-[rgb(249,115,22)] dark:border-zinc-800 dark:text-zinc-300"
               >
                 {cat.label}
               </Link>
@@ -108,7 +108,7 @@ export function Hero() {
                 key={point.label}
                 className="flex items-center gap-2 text-sm font-medium text-black dark:text-white"
               >
-                <point.icon className="h-5 w-5 text-[rgb(255,39,130)]" />
+                <point.icon className="h-5 w-5 text-[rgb(249,115,22)]" />
                 {point.label}
               </div>
             ))}
@@ -130,8 +130,8 @@ export function Hero() {
 
           {/* floating card: job completed */}
           <div className="absolute -left-4 top-6 flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-3 shadow-lg dark:border-zinc-800 dark:bg-zinc-950 sm:-left-8">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(255,39,130,0.1)]">
-              <CheckCircle2 className="h-5 w-5 text-[rgb(255,39,130)]" />
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(249,115,22,0.1)]">
+              <CheckCircle2 className="h-5 w-5 text-[rgb(249,115,22)]" />
             </span>
             <div>
               <p className="text-sm font-semibold text-black dark:text-white">Job Completed</p>
@@ -143,7 +143,7 @@ export function Hero() {
           <div className="absolute -bottom-5 right-6 rounded-2xl border border-zinc-200 bg-white p-4 shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
             <div className="flex items-center gap-1">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-4 w-4 fill-[rgb(255,39,130)] text-[rgb(255,39,130)]" />
+                <Star key={i} className="h-4 w-4 fill-[rgb(249,115,22)] text-[rgb(249,115,22)]" />
               ))}
               <span className="ml-1 text-sm font-bold text-black dark:text-white">4.9</span>
             </div>

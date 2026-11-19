@@ -29,7 +29,7 @@ export async function FeaturedServices() {
           </div>
           <Link
             href="/services"
-            className="text-sm font-medium text-[rgb(255,39,130)] hover:underline"
+            className="text-sm font-medium text-[rgb(249,115,22)] hover:underline"
           >
             View All Services →
           </Link>

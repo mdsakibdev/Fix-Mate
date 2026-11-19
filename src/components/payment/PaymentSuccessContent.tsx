@@ -41,7 +41,7 @@ export function PaymentSuccessContent() {
       <div className="mx-auto max-w-xl px-4 py-20 text-center sm:px-6">
         {state === "verifying" && (
           <>
-            <Loader2 className="mx-auto h-14 w-14 animate-spin text-[rgb(255,39,130)]" />
+            <Loader2 className="mx-auto h-14 w-14 animate-spin text-[rgb(249,115,22)]" />
             <h1 className="mt-5 text-2xl font-bold text-black dark:text-white">
               Verifying your payment...
             </h1>
@@ -63,7 +63,7 @@ export function PaymentSuccessContent() {
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
                 href="/dashboard/customer/payments"
-                className="rounded-lg bg-[rgb(255,39,130)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(225,25,112)]"
+                className="rounded-lg bg-[rgb(249,115,22)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(234,88,12)]"
               >
                 View Payment History
               </Link>
@@ -89,7 +89,7 @@ export function PaymentSuccessContent() {
             </p>
             <Link
               href="/dashboard/customer/bookings"
-              className="mt-6 inline-block rounded-lg bg-[rgb(255,39,130)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(225,25,112)]"
+              className="mt-6 inline-block rounded-lg bg-[rgb(249,115,22)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(234,88,12)]"
             >
               Back to My Bookings
             </Link>

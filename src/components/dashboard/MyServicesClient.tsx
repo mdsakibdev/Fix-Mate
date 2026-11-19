@@ -309,7 +309,7 @@ export function MyServicesClient() {
             <Button
               type="submit"
               disabled={saving || editImageUploading}
-              className="bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+              className="bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
             >
               {saving ? "Saving..." : "Save Changes"}
             </Button>
@@ -325,7 +325,7 @@ export function MyServicesClient() {
           <p className="text-zinc-600 dark:text-zinc-400">You have not added any service yet.</p>
           <Link
             href="/dashboard/technician/add-service"
-            className="mt-3 inline-block font-medium text-[rgb(255,39,130)] hover:underline"
+            className="mt-3 inline-block font-medium text-[rgb(249,115,22)] hover:underline"
           >
             Add your first service
           </Link>
@@ -369,7 +369,7 @@ export function MyServicesClient() {
                       type="button"
                       aria-label="Toggle availability"
                       onClick={() => handleToggle(service)}
-                      className={`relative h-6 w-11 rounded-full ${service.isAvailable ? "bg-[rgb(255,39,130)]" : "bg-zinc-300 dark:bg-zinc-700"}`}
+                      className={`relative h-6 w-11 rounded-full ${service.isAvailable ? "bg-[rgb(249,115,22)]" : "bg-zinc-300 dark:bg-zinc-700"}`}
                     >
                       <span
                         className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-all ${service.isAvailable ? "left-5.5" : "left-0.5"}`}
@@ -382,7 +382,7 @@ export function MyServicesClient() {
                         type="button"
                         aria-label="Edit service"
                         onClick={() => openEdit(service)}
-                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 text-zinc-600 hover:text-[rgb(255,39,130)] dark:border-zinc-800 dark:text-zinc-400"
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 text-zinc-600 hover:text-[rgb(249,115,22)] dark:border-zinc-800 dark:text-zinc-400"
                       >
                         <Pencil className="h-4 w-4" />
                       </button>

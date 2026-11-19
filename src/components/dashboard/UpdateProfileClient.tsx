@@ -76,7 +76,7 @@ function ProfileForm({ user }: { user: ProfileUser }) {
   };
 
   const inputClass =
-    "w-full rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm text-black outline-none focus:border-[rgb(255,39,130)] dark:border-zinc-700 dark:bg-zinc-950 dark:text-white";
+    "w-full rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm text-black outline-none focus:border-[rgb(249,115,22)] dark:border-zinc-700 dark:bg-zinc-950 dark:text-white";
 
   return (
     <div className="max-w-2xl">
@@ -91,12 +91,12 @@ function ProfileForm({ user }: { user: ProfileUser }) {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={imageUrl} alt={name} className="h-20 w-20 rounded-full object-cover" />
           ) : (
-            <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[rgb(255,39,130)] text-2xl font-semibold text-white">
+            <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[rgb(249,115,22)] text-2xl font-semibold text-white">
               {name.charAt(0).toUpperCase()}
             </span>
           )}
           <div>
-            <label className="cursor-pointer rounded-lg bg-[rgb(255,39,130)] px-4 py-2 text-sm font-medium text-white">
+            <label className="cursor-pointer rounded-lg bg-[rgb(249,115,22)] px-4 py-2 text-sm font-medium text-white">
               {uploading ? "Uploading..." : "Change Photo"}
               <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
             </label>
@@ -137,7 +137,7 @@ function ProfileForm({ user }: { user: ProfileUser }) {
         <button
           type="submit"
           disabled={saving || uploading}
-          className="rounded-lg bg-[rgb(255,39,130)] px-6 py-2.5 text-sm font-medium text-white disabled:opacity-50"
+          className="rounded-lg bg-[rgb(249,115,22)] px-6 py-2.5 text-sm font-medium text-white disabled:opacity-50"
         >
           {saving ? "Saving..." : "Save Changes"}
         </button>

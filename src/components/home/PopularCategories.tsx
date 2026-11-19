@@ -37,10 +37,10 @@ export function PopularCategories() {
             <Link
               key={category.name}
               href={`/services?category=${encodeURIComponent(category.name)}`}
-              className="rounded-2xl border border-zinc-200 p-6 transition hover:border-[rgb(255,39,130)] dark:border-zinc-800"
+              className="rounded-2xl border border-zinc-200 p-6 transition hover:border-[rgb(249,115,22)] dark:border-zinc-800"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(255,39,130,0.1)]">
-                <category.icon className="h-6 w-6 text-[rgb(255,39,130)]" />
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(249,115,22,0.1)]">
+                <category.icon className="h-6 w-6 text-[rgb(249,115,22)]" />
               </span>
               <h3 className="mt-4 font-semibold text-black dark:text-white">
                 {category.name}

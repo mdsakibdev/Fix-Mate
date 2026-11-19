@@ -62,7 +62,7 @@ export default async function ServicesPage({ searchParams }: PageProps) {
             </p>
             <Link
               href="/services"
-              className="mt-4 inline-block rounded-lg bg-[rgb(255,39,130)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(225,25,112)]"
+              className="mt-4 inline-block rounded-lg bg-[rgb(249,115,22)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(234,88,12)]"
             >
               View All Services
             </Link>

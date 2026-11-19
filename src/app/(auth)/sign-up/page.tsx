@@ -64,11 +64,11 @@ export default function SignUpPage() {
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 sm:p-8">
       <Link href="/" className="flex items-center justify-center gap-2">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgb(255,39,130)]">
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgb(249,115,22)]">
           <Wrench className="h-5 w-5 text-white" />
         </span>
         <span className="text-xl font-bold text-black dark:text-white">
-          Fix<span className="text-[rgb(255,39,130)]">Mate</span>
+          Fix<span className="text-[rgb(249,115,22)]">Mate</span>
         </span>
       </Link>
 
@@ -131,11 +131,10 @@ export default function SignUpPage() {
             <button
               type="button"
               onClick={() => setRole("customer")}
-              className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium ${
-                role === "customer"
-                  ? "border-[rgb(255,39,130)] bg-[rgba(255,39,130,0.1)] text-[rgb(255,39,130)]"
-                  : "border-zinc-200 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
-              }`}
+              className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium ${role === "customer"
+                ? "border-[rgb(249,115,22)] bg-[rgba(249,115,22,0.1)] text-[rgb(249,115,22)]"
+                : "border-zinc-200 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
+                }`}
             >
               <User className="h-4 w-4" />
               Customer
@@ -143,11 +142,10 @@ export default function SignUpPage() {
             <button
               type="button"
               onClick={() => setRole("technician")}
-              className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium ${
-                role === "technician"
-                  ? "border-[rgb(255,39,130)] bg-[rgba(255,39,130,0.1)] text-[rgb(255,39,130)]"
-                  : "border-zinc-200 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
-              }`}
+              className={`flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium ${role === "technician"
+                ? "border-[rgb(249,115,22)] bg-[rgba(249,115,22,0.1)] text-[rgb(249,115,22)]"
+                : "border-zinc-200 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
+                }`}
             >
               <Wrench className="h-4 w-4" />
               Technician
@@ -158,7 +156,7 @@ export default function SignUpPage() {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+          className="w-full bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           {loading ? "Creating account..." : "Sign Up"}
@@ -167,7 +165,7 @@ export default function SignUpPage() {
 
       <p className="mt-6 text-center text-sm text-zinc-600 dark:text-zinc-400">
         Already have an account?{" "}
-        <Link href="/sign-in" className="font-medium text-[rgb(255,39,130)] hover:underline">
+        <Link href="/sign-in" className="font-medium text-[rgb(249,115,22)] hover:underline">
           Sign In
         </Link>
       </p>

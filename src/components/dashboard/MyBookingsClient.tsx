@@ -145,11 +145,10 @@ export function MyBookingsClient() {
             key={item.value}
             type="button"
             onClick={() => setFilter(item.value)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${
-              filter === item.value
-                ? "bg-[rgb(255,39,130)] text-white"
-                : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
-            }`}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === item.value
+              ? "bg-[rgb(249,115,22)] text-white"
+              : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
+              }`}
           >
             {item.label}
           </button>
@@ -166,7 +165,7 @@ export function MyBookingsClient() {
           {bookings.length === 0 && (
             <Link
               href="/services"
-              className="mt-4 inline-block rounded-lg bg-[rgb(255,39,130)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(225,25,112)]"
+              className="mt-4 inline-block rounded-lg bg-[rgb(249,115,22)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(234,88,12)]"
             >
               Browse Services
             </Link>
@@ -197,11 +196,10 @@ export function MyBookingsClient() {
                       {booking.status}
                     </span>
                     <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${
-                        booking.paymentStatus === "paid"
-                          ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
-                          : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"
-                      }`}
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${booking.paymentStatus === "paid"
+                        ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
+                        : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"
+                        }`}
                     >
                       {booking.paymentStatus}
                     </span>
@@ -215,7 +213,7 @@ export function MyBookingsClient() {
                   <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
                     <p className="text-sm text-zinc-500 dark:text-zinc-400">
                       Amount:{" "}
-                      <span className="text-base font-bold text-[rgb(255,39,130)]">
+                      <span className="text-base font-bold text-[rgb(249,115,22)]">
                         ${booking.finalAmount}
                       </span>
                     </p>
@@ -235,7 +233,7 @@ export function MyBookingsClient() {
                         size="sm"
                         disabled={payingId === booking._id}
                         onClick={() => handlePay(booking)}
-                        className="bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+                        className="bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
                       >
                         {payingId === booking._id ? "Redirecting..." : "Pay Now"}
                       </Button>

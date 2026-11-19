@@ -72,11 +72,11 @@ export function Footer() {
         {/* Brand */}
         <div>
           <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgb(255,39,130)]">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgb(249,115,22)]">
               <Wrench className="h-5 w-5 text-white" />
             </span>
             <span className="text-xl font-bold">
-              Fix<span className="text-[rgb(255,39,130)]">Mate</span>
+              Fix<span className="text-[rgb(249,115,22)]">Mate</span>
             </span>
           </Link>
           <p className="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -92,7 +92,7 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={social.label}
-                className="flex h-9 w-9 items-center justify support justify-center rounded-full border border-zinc-300 text-zinc-600 transition hover:border-[rgb(255,39,130)] hover:text-[rgb(255,39,130)] dark:border-zinc-800 dark:text-zinc-400"
+                className="flex h-9 w-9 items-center justify support justify-center rounded-full border border-zinc-300 text-zinc-600 transition hover:border-[rgb(249,115,22)] hover:text-[rgb(249,115,22)] dark:border-zinc-800 dark:text-zinc-400"
               >
                 <social.icon className="h-4 w-4" />
               </a>
@@ -108,7 +108,7 @@ export function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-sm text-zinc-600 transition hover:text-[rgb(255,39,130)] dark:text-zinc-400"
+                  className="text-sm text-zinc-600 transition hover:text-[rgb(249,115,22)] dark:text-zinc-400"
                 >
                   {link.label}
                 </Link>
@@ -125,7 +125,7 @@ export function Footer() {
               <li key={category}>
                 <Link
                   href={`/services?category=${encodeURIComponent(category)}`}
-                  className="text-sm text-zinc-600 transition hover:text-[rgb(255,39,130)] dark:text-zinc-400"
+                  className="text-sm text-zinc-600 transition hover:text-[rgb(249,115,22)] dark:text-zinc-400"
                 >
                   {category} Repair
                 </Link>
@@ -139,15 +139,15 @@ export function Footer() {
           <h3 className="text-base font-semibold">Contact Us</h3>
           <ul className="mt-4 space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
             <li className="flex items-start gap-3">
-              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[rgb(255,39,130)]" />
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[rgb(249,115,22)]" />
               support@fixmate.com
             </li>
             <li className="flex items-start gap-3">
-              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-[rgb(255,39,130)]" />
+              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-[rgb(249,115,22)]" />
               +880 1700-000000
             </li>
             <li className="flex items-start gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[rgb(255,39,130)]" />
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[rgb(249,115,22)]" />
               Dhaka, Bangladesh
             </li>
           </ul>

@@ -84,7 +84,7 @@ export function RequestRepair({ serviceId }: { serviceId: string }) {
         </p>
         <Button
           onClick={() => router.push("/sign-in")}
-          className="w-full bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+          className="w-full bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
         >
           Request Repair
         </Button>
@@ -108,7 +108,7 @@ export function RequestRepair({ serviceId }: { serviceId: string }) {
         </p>
         <Link
           href="/dashboard/customer/bookings"
-          className="mt-2 inline-block text-sm font-medium text-[rgb(255,39,130)] hover:underline"
+          className="mt-2 inline-block text-sm font-medium text-[rgb(249,115,22)] hover:underline"
         >
           Go to My Bookings →
         </Link>
@@ -120,7 +120,7 @@ export function RequestRepair({ serviceId }: { serviceId: string }) {
     return (
       <Button
         onClick={() => setShowForm(true)}
-        className="w-full bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+        className="w-full bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
       >
         Request Repair
       </Button>
@@ -194,7 +194,7 @@ export function RequestRepair({ serviceId }: { serviceId: string }) {
         <Button
           type="submit"
           disabled={loading}
-          className="flex-1 bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+          className="flex-1 bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           {loading ? "Sending..." : "Send Request"}

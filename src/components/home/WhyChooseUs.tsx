@@ -42,8 +42,8 @@ export function WhyChooseUs() {
               key={point.title}
               className="rounded-2xl border border-zinc-200 p-6 dark:border-zinc-800"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(255,39,130,0.1)]">
-                <point.icon className="h-6 w-6 text-[rgb(255,39,130)]" />
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(249,115,22,0.1)]">
+                <point.icon className="h-6 w-6 text-[rgb(249,115,22)]" />
               </span>
               <h3 className="mt-4 font-semibold text-black dark:text-white">
                 {point.title}

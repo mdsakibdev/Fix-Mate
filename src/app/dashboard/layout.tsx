@@ -67,11 +67,11 @@ function SidebarContent({
   return (
     <div className="flex h-full flex-col">
       <Link href="/" onClick={onNavigate} className="flex items-center gap-2 border-b border-zinc-200 px-5 py-4 dark:border-zinc-800">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgb(255,39,130)]">
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgb(249,115,22)]">
           <Wrench className="h-5 w-5 text-white" />
         </span>
         <span className="text-xl font-bold text-black dark:text-white">
-          Fix<span className="text-[rgb(255,39,130)]">Mate</span>
+          Fix<span className="text-[rgb(249,115,22)]">Mate</span>
         </span>
       </Link>
 
@@ -86,11 +86,10 @@ function SidebarContent({
               key={item.href}
               href={item.href}
               onClick={onNavigate}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${
-                isActive
-                  ? "bg-[rgba(255,39,130,0.1)] text-[rgb(255,39,130)]"
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${isActive
+                  ? "bg-[rgba(249,115,22,0.1)] text-[rgb(249,115,22)]"
                   : "text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-white"
-              }`}
+                }`}
             >
               <item.icon className="h-5 w-5" />
               {item.label}
@@ -208,7 +207,7 @@ export default function DashboardLayout({
           <div className="flex items-center gap-4">
             <Link
               href="/"
-              className="flex items-center gap-1.5 text-sm font-medium text-zinc-600 hover:text-[rgb(255,39,130)] dark:text-zinc-400"
+              className="flex items-center gap-1.5 text-sm font-medium text-zinc-600 hover:text-[rgb(249,115,22)] dark:text-zinc-400"
             >
               <Home className="h-4 w-4" />
               Home
@@ -218,7 +217,7 @@ export default function DashboardLayout({
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={user.image} alt={user.name || "User"} className="h-9 w-9 rounded-full object-cover" />
               ) : (
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[rgb(255,39,130)] text-sm font-semibold text-white">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[rgb(249,115,22)] text-sm font-semibold text-white">
                   {user?.name?.charAt(0).toUpperCase() || "U"}
                 </span>
               )}

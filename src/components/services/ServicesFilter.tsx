@@ -79,7 +79,7 @@ export function ServicesFilter({
               className="pl-9"
             />
           </div>
-          <Button type="submit" className="bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]">
+          <Button type="submit" className="bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]">
             Search
           </Button>
         </form>
@@ -130,7 +130,7 @@ export function ServicesFilter({
           <button
             type="button"
             onClick={handleClear}
-            className="text-sm font-medium text-zinc-500 hover:text-[rgb(255,39,130)] dark:text-zinc-400"
+            className="text-sm font-medium text-zinc-500 hover:text-[rgb(249,115,22)] dark:text-zinc-400"
           >
             Clear
           </button>

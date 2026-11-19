@@ -128,7 +128,7 @@ export function AdminUsersClient() {
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       ) : (
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgb(255,39,130)] text-sm font-semibold text-white">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgb(249,115,22)] text-sm font-semibold text-white">
                           {user.name.charAt(0).toUpperCase()}
                         </span>
                       )}

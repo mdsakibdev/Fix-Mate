@@ -234,7 +234,7 @@ export function AddServiceForm() {
         <Button
           type="submit"
           disabled={loading || imageUploading}
-          className="bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+          className="bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           {loading ? "Adding..." : "Add Service"}

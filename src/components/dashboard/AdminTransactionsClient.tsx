@@ -64,7 +64,7 @@ export function AdminTransactionsClient() {
 
       <div className="mt-6 max-w-xs rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800">
         <p className="text-sm text-zinc-500 dark:text-zinc-400">Total Revenue</p>
-        <p className="mt-1 text-3xl font-bold text-[rgb(255,39,130)]">${totalRevenue}</p>
+        <p className="mt-1 text-3xl font-bold text-[rgb(249,115,22)]">${totalRevenue}</p>
         <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
           From {payments.length} payment{payments.length === 1 ? "" : "s"}
         </p>
@@ -96,7 +96,7 @@ export function AdminTransactionsClient() {
                     <p>{payment.customerName}</p>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400">{payment.customerEmail}</p>
                   </td>
-                  <td className="px-4 py-3 font-semibold text-[rgb(255,39,130)]">${payment.amount}</td>
+                  <td className="px-4 py-3 font-semibold text-[rgb(249,115,22)]">${payment.amount}</td>
                   <td className="max-w-50 truncate px-4 py-3 text-xs text-zinc-500 dark:text-zinc-400">
                     {payment.transactionId}
                   </td>

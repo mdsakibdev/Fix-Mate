@@ -50,7 +50,7 @@ export default async function ServiceDetailsPage({
             />
 
             <div className="mt-6 flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-[rgba(255,39,130,0.1)] px-3 py-1 text-sm font-medium text-[rgb(255,39,130)]">
+              <span className="rounded-full bg-[rgba(249,115,22,0.1)] px-3 py-1 text-sm font-medium text-[rgb(249,115,22)]">
                 {service.category}
               </span>
               <span className="rounded-full bg-zinc-100 px-3 py-1 text-sm text-zinc-600 dark:bg-zinc-900 dark:text-zinc-400">
@@ -68,13 +68,13 @@ export default async function ServiceDetailsPage({
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
                 <p className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
-                  <Clock3 className="h-4 w-4 text-[rgb(255,39,130)]" /> Estimated Duration
+                  <Clock3 className="h-4 w-4 text-[rgb(249,115,22)]" /> Estimated Duration
                 </p>
                 <p className="mt-1 font-medium text-black dark:text-white">{service.estimatedDuration}</p>
               </div>
               <div className="rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
                 <p className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
-                  <MapPin className="h-4 w-4 text-[rgb(255,39,130)]" /> Service Area
+                  <MapPin className="h-4 w-4 text-[rgb(249,115,22)]" /> Service Area
                 </p>
                 <p className="mt-1 font-medium text-black dark:text-white">{service.serviceArea}</p>
               </div>
@@ -82,7 +82,7 @@ export default async function ServiceDetailsPage({
 
             <p className="mt-6 text-zinc-600 dark:text-zinc-400">
               Starting price:{" "}
-              <span className="text-2xl font-bold text-[rgb(255,39,130)]">${service.basePrice}</span>
+              <span className="text-2xl font-bold text-[rgb(249,115,22)]">${service.basePrice}</span>
             </p>
           </div>
 
@@ -100,7 +100,7 @@ export default async function ServiceDetailsPage({
                       className="h-12 w-12 rounded-full object-cover"
                     />
                   ) : (
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgb(255,39,130)] font-semibold text-white">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgb(249,115,22)] font-semibold text-white">
                       {technician.name.charAt(0).toUpperCase()}
                     </span>
                   )}

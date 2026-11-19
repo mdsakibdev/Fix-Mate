@@ -81,11 +81,10 @@ export function AdminBookingsClient() {
             key={item.value}
             type="button"
             onClick={() => setFilter(item.value)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${
-              filter === item.value
-                ? "bg-[rgb(255,39,130)] text-white"
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === item.value
+                ? "bg-[rgb(249,115,22)] text-white"
                 : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
-            }`}
+              }`}
           >
             {item.label}
           </button>
@@ -128,7 +127,7 @@ export function AdminBookingsClient() {
                     <p className="text-xs text-zinc-500 dark:text-zinc-400">{booking.customerEmail}</p>
                   </td>
                   <td className="px-4 py-3">{booking.technicianName}</td>
-                  <td className="px-4 py-3 font-semibold text-[rgb(255,39,130)]">
+                  <td className="px-4 py-3 font-semibold text-[rgb(249,115,22)]">
                     ${booking.finalAmount}
                   </td>
                   <td className="px-4 py-3">
@@ -138,11 +137,10 @@ export function AdminBookingsClient() {
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${
-                        booking.paymentStatus === "paid"
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${booking.paymentStatus === "paid"
                           ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
                           : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"
-                      }`}
+                        }`}
                     >
                       {booking.paymentStatus}
                     </span>

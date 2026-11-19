@@ -64,7 +64,7 @@ export function PaymentHistoryClient() {
           <p className="text-zinc-600 dark:text-zinc-400">No payments yet.</p>
           <Link
             href="/dashboard/customer/bookings"
-            className="mt-4 inline-block rounded-lg bg-[rgb(255,39,130)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(225,25,112)]"
+            className="mt-4 inline-block rounded-lg bg-[rgb(249,115,22)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[rgb(234,88,12)]"
           >
             Go to My Bookings
           </Link>
@@ -88,7 +88,7 @@ export function PaymentHistoryClient() {
                     {new Date(payment.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3 font-medium">{payment.serviceTitle}</td>
-                  <td className="px-4 py-3 font-semibold text-[rgb(255,39,130)]">
+                  <td className="px-4 py-3 font-semibold text-[rgb(249,115,22)]">
                     ${payment.amount}
                   </td>
                   <td className="max-w-55 truncate px-4 py-3 text-xs text-zinc-500 dark:text-zinc-400">

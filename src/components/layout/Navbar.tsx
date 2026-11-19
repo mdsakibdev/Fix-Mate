@@ -26,11 +26,11 @@ const navLinks = [
 function Brand() {
   return (
     <Link href="/" aria-label="FixMate home" className="flex items-center gap-2.5">
-      <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[rgb(255,39,130)] text-white shadow-sm">
+      <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[rgb(249,115,22)] text-white shadow-sm">
         <Wrench className="size-5" />
       </span>
       <span className="text-xl font-semibold tracking-tight text-black dark:text-white">
-        Fix<span className="text-[rgb(255,39,130)]">Mate</span>
+        Fix<span className="text-[rgb(249,115,22)]">Mate</span>
       </span>
     </Link>
   );
@@ -67,7 +67,7 @@ function DesktopNav() {
             className={cn(
               "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
               isActive
-                ? "text-[rgb(255,39,130)] after:absolute after:inset-x-3 after:bottom-0.5 after:h-0.5 after:rounded-full after:bg-[rgb(255,39,130)]"
+                ? "text-[rgb(249,115,22)] after:absolute after:inset-x-3 after:bottom-0.5 after:h-0.5 after:rounded-full after:bg-[rgb(249,115,22)]"
                 : "text-zinc-600 hover:text-black dark:text-zinc-400 dark:hover:text-white"
             )}
           >
@@ -131,7 +131,7 @@ export function Navbar() {
               <Button
                 nativeButton={false}
                 render={<Link href="/sign-up" />}
-                className="hidden bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)] sm:inline-flex"
+                className="hidden bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)] sm:inline-flex"
               >
                 Sign Up
               </Button>
@@ -153,7 +153,7 @@ export function Navbar() {
                     className="h-9 w-9 rounded-full object-cover"
                   />
                 ) : (
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[rgb(255,39,130)] text-sm font-semibold text-white">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[rgb(249,115,22)] text-sm font-semibold text-white">
                     {user?.name?.charAt(0).toUpperCase() || "U"}
                   </span>
                 )}
@@ -168,7 +168,7 @@ export function Navbar() {
                     <p className="truncate text-xs text-zinc-500 dark:text-zinc-400">
                       {user?.email}
                     </p>
-                    <span className="mt-2 inline-block rounded-full bg-[rgba(255,39,130,0.1)] px-2.5 py-0.5 text-xs font-medium capitalize text-[rgb(255,39,130)]">
+                    <span className="mt-2 inline-block rounded-full bg-[rgba(249,115,22,0.1)] px-2.5 py-0.5 text-xs font-medium capitalize text-[rgb(249,115,22)]">
                       {role}
                     </span>
                   </div>
@@ -220,11 +220,11 @@ export function Navbar() {
             <SheetContent side="right" className="w-80 gap-0">
               <SheetHeader className="border-b p-4">
                 <SheetTitle className="flex items-center gap-2.5">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[rgb(255,39,130)] text-white">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[rgb(249,115,22)] text-white">
                     <Wrench className="size-5" />
                   </span>
                   <span className="text-xl font-semibold tracking-tight">
-                    Fix<span className="text-[rgb(255,39,130)]">Mate</span>
+                    Fix<span className="text-[rgb(249,115,22)]">Mate</span>
                   </span>
                 </SheetTitle>
               </SheetHeader>
@@ -241,7 +241,7 @@ export function Navbar() {
                       className={cn(
                         "rounded-md px-3 py-2 text-sm font-medium transition-colors",
                         isActive
-                          ? "bg-[rgba(255,39,130,0.1)] text-[rgb(255,39,130)]"
+                          ? "bg-[rgba(249,115,22,0.1)] text-[rgb(249,115,22)]"
                           : "text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-white"
                       )}
                     >
@@ -286,7 +286,7 @@ export function Navbar() {
                       nativeButton={false}
                       render={<Link href="/sign-up" />}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="w-full bg-[rgb(255,39,130)] text-white hover:bg-[rgb(225,25,112)]"
+                      className="w-full bg-[rgb(249,115,22)] text-white hover:bg-[rgb(234,88,12)]"
                     >
                       Sign Up
                     </Button>

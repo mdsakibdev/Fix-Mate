@@ -112,11 +112,10 @@ export function AdminServicesClient() {
             key={item.value}
             type="button"
             onClick={() => setFilter(item.value)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${
-              filter === item.value
-                ? "bg-[rgb(255,39,130)] text-white"
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === item.value
+                ? "bg-[rgb(249,115,22)] text-white"
                 : "border border-zinc-300 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400"
-            }`}
+              }`}
           >
             {item.label}
           </button>
