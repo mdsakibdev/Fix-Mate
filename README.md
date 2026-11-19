@@ -2,19 +2,23 @@
 
 FixMate connects customers with verified technicians for smart device and home appliance repairs. Customers browse approved services, send repair requests, track the job step by step, pay securely online and leave a review. Technicians manage their services and repair pipeline, and admins keep the platform under control.
 
+## Home Page
+
+![FixMate Home Page](./homepage.png)
+
 ## Live Site
 
-- **Live URL:** _add after deployment_
-- **Server API:** _add after deployment_
+- **Live URL:** https://fix-mate-client-fghr.vercel.app
+- **Server API:** https://fix-mate-server-fghr.vercel.app
 
 ## Demo Accounts
 
-| Role       | Email              | Password   |
-| ---------- | ------------------ | ---------- |
-| Admin      | _admin email_      | 1234567Ad |
-| Technician | evrahim@gmail.com  | 1234567Ev |
-| Technician | rahim@gmail.com    | Rahim123   |
-| Customer   | khaled@gmail.com   | 1234567Kh |
+| Role       | Email             | Password   |
+| ---------- | ----------------- | ---------- |
+| Admin      | admin@gmail.com   | 1234567Ad  |
+| Technician | evrahim@gmail.com | 1234567Ev  |
+| Technician | rahim@gmail.com   | Rahim123   |
+| Customer   | khaled@gmail.com  | 1234567Kh  |
 
 ## Key Features
 
