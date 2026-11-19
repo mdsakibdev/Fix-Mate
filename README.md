@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FixMate — Smart Device & Home Appliance Repair Service Platform
 
-## Getting Started
+FixMate connects customers with verified technicians for smart device and home appliance repairs. Customers browse approved services, send repair requests, track the job step by step, pay securely online and leave a review. Technicians manage their services and repair pipeline, and admins keep the platform under control.
 
-First, run the development server:
+## Live Site
+
+- **Live URL:** _add after deployment_
+- **Server API:** _add after deployment_
+
+## Demo Accounts
+
+| Role       | Email              | Password   |
+| ---------- | ------------------ | ---------- |
+| Admin      | _admin email_      | 1234567Ad |
+| Technician | evrahim@gmail.com  | 1234567Ev |
+| Technician | rahim@gmail.com    | Rahim123   |
+| Customer   | khaled@gmail.com   | 1234567Kh |
+
+## Key Features
+
+- **Role-based dashboards** for Customer, Technician and Admin
+- **Authentication** with Better Auth (email/password + JWT); sign-up only as Customer or Technician
+- **Service marketplace** — only admin-approved and available services are public
+- **Server-side search, category/mode filters, sorting and pagination** (state kept in the URL)
+- **Repair request flow** with a server-enforced status pipeline: Requested → Accepted → In Progress → Completed (or Rejected), cancel only while Requested
+- **Job Timeline Tracker** — a visual stepper with dates on every booking
+- **Stripe Checkout payments** — pay only after completion; each payment is saved once with its Stripe payment intent id
+- **Rating & Review** — customers review paid jobs; average rating shows on service cards and details
+- **Admin controls** — approve/reject services, manage user roles, monitor all bookings and transactions, platform stats with a bookings-by-status chart
+- **Profile management** with photo upload (ImgBB)
+- **Extras** — dark/light mode, toast notifications, loading skeletons, custom 404 and error pages, confirmation modals for destructive actions
+
+## Tech Stack
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS + shadcn/ui
+- Better Auth (client-side auth with MongoDB adapter, JWT for the API)
+- Sonner (toasts), lucide-react (icons)
+
+## Main NPM Packages
+
+- `next`, `react`, `react-dom`
+- `better-auth`
+- `mongodb`
+- `tailwindcss`
+- `sonner`
+- `lucide-react`
+
+## Getting Started (Local)
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a `.env.local` file with:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+MONGODB_URI=
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=http://localhost:3000
+NEXT_PUBLIC_SERVER_URL=http://localhost:5000
+NEXT_PUBLIC_IMGBB_API_KEY=
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Express server (separate repository) must be running for the site to work fully.
