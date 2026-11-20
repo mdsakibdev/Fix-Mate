@@ -8,6 +8,7 @@ import { Wrench, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth-client";
+import GoogleButton from "@/components/auth/GoogleButton";
 
 export default function SignInPage() {
   return (
@@ -65,6 +66,11 @@ function SignInForm() {
     }
   };
 
+  // Google users land back on the page they came from, or on the customer
+  // dashboard (a Google account always gets the "customer" role).
+  const googleCallbackUrl =
+    callbackUrl && callbackUrl.startsWith("/") ? callbackUrl : "/dashboard/customer";
+
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 sm:p-8">
       <Link href="/" className="flex items-center justify-center gap-2">
@@ -117,6 +123,14 @@ function SignInForm() {
           {loading ? "Signing in..." : "Sign In"}
         </Button>
       </form>
+
+      <div className="my-6 flex items-center gap-3">
+        <span className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+        <span className="text-xs text-zinc-500 dark:text-zinc-400">or continue with</span>
+        <span className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+      </div>
+
+      <GoogleButton callbackURL={googleCallbackUrl} label="Sign in with Google" />
 
       <p className="mt-6 text-center text-sm text-zinc-600 dark:text-zinc-400">
         Do not have an account?{" "}

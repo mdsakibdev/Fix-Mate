@@ -7,6 +7,7 @@ import { Wrench, User, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signUp } from "@/lib/auth-client";
+import GoogleButton from "@/components/auth/GoogleButton";
 
 function getPasswordErrors(password: string) {
   const errors: string[] = [];
@@ -163,6 +164,18 @@ export default function SignUpPage() {
           {loading ? "Creating account..." : "Sign Up"}
         </Button>
       </form>
+
+      <div className="my-6 flex items-center gap-3">
+        <span className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+        <span className="text-xs text-zinc-500 dark:text-zinc-400">or continue with</span>
+        <span className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+      </div>
+
+      <GoogleButton callbackURL="/dashboard/customer" label="Sign up with Google" />
+      <p className="mt-3 text-center text-xs text-zinc-500 dark:text-zinc-400">
+        Google sign-up creates a Customer account. To join as a Technician, please
+        use the form above.
+      </p>
 
       <p className="mt-6 text-center text-sm text-zinc-600 dark:text-zinc-400">
         Already have an account?{" "}
