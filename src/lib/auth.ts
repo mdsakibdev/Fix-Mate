@@ -3,7 +3,22 @@ import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { jwt } from "better-auth/plugins";
 
-const client = new MongoClient(process.env.MONGODB_URI as string);
+// Reuse ONE MongoDB client for the whole app. Without this, the server
+// keeps opening new database connections until Atlas reaches its limit —
+// then sign-in starts failing with a 500 error until the site is
+// redeployed. One shared client with a small pool avoids that.
+const globalForMongo = globalThis as unknown as {
+  mongoClient?: MongoClient;
+};
+
+const client =
+  globalForMongo.mongoClient ??
+  new MongoClient(process.env.MONGODB_URI as string, {
+    maxPoolSize: 10,
+    maxIdleTimeMS: 60000,
+  });
+globalForMongo.mongoClient = client;
+
 const db = client.db("fix-mate");
 
 export const auth = betterAuth({
