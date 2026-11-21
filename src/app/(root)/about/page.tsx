@@ -14,6 +14,7 @@ import {
   type TechnicianSummary,
 } from "@/components/about/MeetTechnicians";
 import type { Service } from "@/types";
+import { Reveal } from "@/components/ui/Reveal";
 
 const SERVER_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
@@ -50,9 +51,9 @@ export default async function AboutPage() {
   const averageRating =
     totalReviews > 0
       ? services.reduce(
-        (sum, s) => sum + (s.averageRating || 0) * (s.reviewCount || 0),
-        0
-      ) / totalReviews
+          (sum, s) => sum + (s.averageRating || 0) * (s.reviewCount || 0),
+          0
+        ) / totalReviews
       : 0;
 
   // Group the services by technician for the "Meet Our Technicians" cards
@@ -93,6 +94,7 @@ export default async function AboutPage() {
   return (
     <>
       {/* Hero + live stats */}
+      <Reveal>
       <section className="bg-white dark:bg-black">
         <div className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
@@ -129,15 +131,16 @@ export default async function AboutPage() {
           )}
         </div>
       </section>
+      </Reveal>
 
       {/* Our story */}
+      <Reveal>
       <section className="bg-white dark:bg-black">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <Image
               src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1000&q=80"
               alt="Engineer testing electronics in a modern lab"
-
               width={1000}
               height={750}
               className="w-full rounded-3xl object-cover"
@@ -181,16 +184,24 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* Real technicians, grouped from the live services */}
       {technicians.length > 0 && (
-        <MeetTechnicians technicians={technicians} />
+        <Reveal>
+          <MeetTechnicians technicians={technicians} />
+        </Reveal>
       )}
 
-      <HowItWorks />
-      <WhyChooseUs />
+      <Reveal>
+        <HowItWorks />
+      </Reveal>
+      <Reveal>
+        <WhyChooseUs />
+      </Reveal>
 
       {/* Call to action */}
+      <Reveal>
       <section className="bg-white dark:bg-black">
         <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <div className="rounded-3xl bg-[rgb(249,115,22)] px-6 py-12 text-center">
@@ -218,6 +229,7 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
+      </Reveal>
     </>
   );
 }

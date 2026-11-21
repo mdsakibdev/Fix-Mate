@@ -156,3 +156,9 @@
   animation-play-state: paused;
 }
 
+/* Smooth scrolling for the whole site — add this at the very END of globals.css */
+html {
+  scroll-behavior: smooth;
+}
+
+
