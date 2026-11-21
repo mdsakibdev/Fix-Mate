@@ -1,15 +1,50 @@
 import { ServiceCardSkeleton } from "@/components/services/ServiceCardSkeleton";
 import { Skeleton } from "@/components/ui/skeleton";
 
+// Matches the home page layout: hero, featured services, top rated,
+// FAQ rows and the 4 "How It Works" steps.
 export default function HomeLoading() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <Skeleton className="h-72 w-full rounded-3xl" />
-      <Skeleton className="mx-auto mt-16 h-8 w-64" />
-      <Skeleton className="mx-auto mt-3 h-4 w-96 max-w-full" />
+      {/* Hero */}
+      <Skeleton className="h-80 w-full rounded-3xl sm:h-96" />
+
+      {/* Featured services */}
+      <div className="mt-16 flex items-end justify-between">
+        <div>
+          <Skeleton className="h-8 w-64" />
+          <Skeleton className="mt-3 h-4 w-96 max-w-full" />
+        </div>
+        <Skeleton className="hidden h-5 w-32 sm:block" />
+      </div>
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
           <ServiceCardSkeleton key={i} />
+        ))}
+      </div>
+
+      {/* Top rated services */}
+      <Skeleton className="mx-auto mt-16 h-8 w-72" />
+      <Skeleton className="mx-auto mt-3 h-4 w-80 max-w-full" />
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <ServiceCardSkeleton key={i} />
+        ))}
+      </div>
+
+      {/* FAQ */}
+      <Skeleton className="mx-auto mt-16 h-8 w-64" />
+      <div className="mx-auto mt-8 max-w-3xl space-y-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Skeleton key={i} className="h-16 w-full rounded-2xl" />
+        ))}
+      </div>
+
+      {/* How it works */}
+      <Skeleton className="mx-auto mt-16 h-8 w-56" />
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Skeleton key={i} className="h-40 w-full rounded-2xl" />
         ))}
       </div>
     </div>
